@@ -55,6 +55,7 @@ $("#search_button").click(function() {
 
 		var clone = $(".template").clone();
 		clone.find(".card-title").text(win);
+		clone.find(".card-text").text(kills + "/" + deaths + "/" + assists);
 
 		clone.removeClass("template")
         // insert into DOM
