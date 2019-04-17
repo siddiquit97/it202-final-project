@@ -1,12 +1,12 @@
 var summonerName;
 var summonerID;
 var accountID;		
-var apiKey = "RGAPI-a20934a8-b066-4473-abad-f42877c6104c";
+var apiKey = "RGAPI-3a0a7c8b-3620-4842-9154-1e355df94826";
 
 $("#search_button").click(function() {
 	//var summonerNameSearch = $("#summoner_name").val();
 	summonerNameSearch = "siddique"
-	var url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerNameSearch+"?api_key=" + apiKey;
+	var url = "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerNameSearch+"?api_key=" + apiKey;
 	$.get(url, function(response){
 		var data = response;
 		//console.log(response);
@@ -17,7 +17,7 @@ $("#search_button").click(function() {
 	});
 	
 	function getMatchInfo(accountID) {
-		$.get("https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/"+accountID+"?beginTime=1&endIndex=5&queue=420&api_key=" + apiKey, function(response){
+		$.get("https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/"+accountID+"?beginTime=1&endIndex=5&queue=420&api_key=" + apiKey, function(response){
 			//console.log(response.matches[0].gameId);
 			var data = response.matches;
 			//console.log(data);
@@ -30,7 +30,7 @@ $("#search_button").click(function() {
 	function getMatchDetails(gameId, champion) {
 		console.log(gameId + "\n" + champion);
 
-		$.get("https://na1.api.riotgames.com/lol/match/v4/matches/"+gameId+"?api_key=" + apiKey, function(response){
+		$.get("https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matches/"+gameId+"?api_key=" + apiKey, function(response){
 			//console.log(response.participants);
 			for (var i = 0; i < response.participants.length; i++) {
 				//console.log(response.participants[i]);
@@ -41,7 +41,10 @@ $("#search_button").click(function() {
 					var assists = response.participants[i].stats.assists;
 					/*console.log(kills + "/" + deaths + "/" + assists);
 					console.log(win);*/
-					displayMatchDetails(win, kills, deaths, assists, champion);
+					var role = response.participants[i].timeline.role;
+					var lane = response.participants[i].timeline.lane;
+
+					displayMatchDetails(win, kills, deaths, assists, champion, role, lane);
 
 					break;
 				} 
@@ -49,7 +52,7 @@ $("#search_button").click(function() {
 		});
 	}
 
-	function displayMatchDetails(win, kills, deaths, assists, champion) {
+	function displayMatchDetails(win, kills, deaths, assists, champion, role, lane) {
 		console.log(kills + "/" + deaths + "/" + assists);
 		console.log(win);
 
@@ -64,10 +67,26 @@ $("#search_button").click(function() {
 		clone.find(".card-subtitle").text(ChIDToName(champion));
 		clone.find(".card-text").text(kills + "/" + deaths + "/" + assists);
 
+		clone.find(".card-img-top").attr("src", getSource(role, lane));
 		clone.removeClass("template")
         // insert into DOM
         $("body").append(clone);
 	}
+
+	function getSource(role, lane) {
+		if (lane === "JUNGLE") {
+			return "https://mobalytics.gg/wp-content/uploads/2018/01/Jungle.png";
+		} else if (lane === "BOTTOM" && role === "DUO_CARRY") {
+			return "https://mobalytics.gg/wp-content/uploads/2018/01/ADC.png";
+		} else if (lane === "BOTTOM" && role === "DUO_SUPPORT") {
+			return "https://mobalytics.gg/wp-content/uploads/2018/01/Support.png";
+		} else if (lane === "TOP") {
+			return "https://mobalytics.gg/wp-content/uploads/2018/01/Top-1.png"; 
+		} else {
+			return "https://mobalytics.gg/wp-content/uploads/2018/01/Mid.png";
+		}
+	}
+
 
 	function ChIDToName(champion) {
 	    switch(champion){
