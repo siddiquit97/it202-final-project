@@ -1,11 +1,19 @@
 var summonerName;
 var summonerID;
 var accountID;		
-var apiKey = "RGAPI-3a0a7c8b-3620-4842-9154-1e355df94826";
+var apiKey = "RGAPI-b0107c87-32ca-4af3-a1a2-749f16beac85";
+
+$(document).ready(function() {
+	hideScreens();
+	$("#search").show();
+});
 
 $("#search_button").click(function() {
 	//var summonerNameSearch = $("#summoner_name").val();
-	summonerNameSearch = "siddique"
+
+	hideScreens();
+	$("#list").show();
+	summonerNameSearch = "wascally rascal"
 	var url = "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerNameSearch+"?api_key=" + apiKey;
 	$.get(url, function(response){
 		var data = response;
@@ -56,10 +64,13 @@ $("#search_button").click(function() {
 		console.log(kills + "/" + deaths + "/" + assists);
 		console.log(win);
 
+		var winTotal = 0;
+
 		var clone = $(".template").clone();
 		if (win) {
 			clone.find(".card-title").text("Victory");
 			clone.addClass("win");
+			winTotal += 1;
 		} else {
 			clone.find(".card-title").text("Defeat");
 			clone.addClass("loss");
@@ -70,7 +81,7 @@ $("#search_button").click(function() {
 		clone.find(".card-img-top").attr("src", getSource(role, lane));
 		clone.removeClass("template")
         // insert into DOM
-        $("body").append(clone);
+        $(".listCover").append(clone);
 	}
 
 	function getSource(role, lane) {
@@ -223,6 +234,13 @@ $("#search_button").click(function() {
 		    case 267: return "Nami"; break;
 		    case 59: return "Jarvan IV"; break;
 		    case 81: return "Ezreal"; break;
+		    case 145: return "Kai'Sa"; break;
+		    case 517: return "Sylas"; break;
 	    }
-	}
+	}	
 });
+
+function hideScreens() {
+		$("#search").hide();
+		$("#list").hide();
+	}
