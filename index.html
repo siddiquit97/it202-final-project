@@ -5,44 +5,8 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Hot Streak</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-        <style>
-		.template {
-			display: none;
-		}
-
-		.win {
-			background-color: #C7C0FC;
-		}
-
-		.loss {
-			background-color: #FE90A4;
-		}
-
-    	.navbar-default {
-   			 background: #F1F1F1 !important;
-		}
-
-		.listCover {
-			width: 18rem;
-			margin: 0 auto;
-			border: 2px solid black;
-			background-color: rgba(0,0,0,0.75);
-
-		}
-		
-		html {
-			height: 100%;
-		}
-
-		body {
-			background-image: url("https://qutesports.com/wp-content/uploads/2018/06/League-of-Legends-banner.jpg");
-			background-position: center;
-  			//background-repeat: no-repeat;
-  			background-size: cover;
-  			height: 100%;
-		}
-		</style>
+		<link rel="stylesheet" href="style.css">
+        
     </head>
     <body>
         
@@ -62,24 +26,27 @@
 		        <li class="nav-item">
 		          <a class="nav-link" href="#map">Map</a>
 		        </li>
-		        <li class="nav-item">
-		          <a class="nav-link" href="#about">About</a>
-		        </li>
 		      </ul>
 		    </div>
   		</nav>
 
 
-        <div id="search">
+        <!-- <div id="home">
         	<input type="text" id="summoner_name">
         	<button id="search_button">Search</button>
-        </div>
+        </div> -->
+
+        <div id="home">
+	  	  	<h4>Search for Graffiti</h1>
+  	  		<input type="text" id="summoner_name" placeholder="Enter Summoner Name"><br>
+  	  		<div id="saveButton"><button id="search_button">Search</button></div>
+	  	</div>
         
 
-        <div class="container" id="list">
-        	<div class="jumbotron">Hot Streak</div>
+        <div class="container" id="list" style="margin-top: 20px;">
+        	<div class="jumbotron win_jumbo lose_jumbo">Hot Streak</div>
 			<div class="listCover">
-				<div class="card template" style="width: 18rem; margin: auto; margin-bottom: 15px;">
+				<div class="card template" style="width: 22rem; margin: auto; margin-bottom: 35px;">
 				  	<img class="card-img-top" src="http://via.placeholder.com/640x360" alt="Card image cap">
 				  	<div class="card-body">
 				    <h5 class="card-title">Card title</h5>

@@ -1,0 +1,59 @@
+.template {
+	display: none;
+}
+
+.win {
+	background-color: #C7C0FC;
+}
+
+.loss {
+	background-color: #FE90A4;
+}
+
+.navbar-default {
+   	 background: #F1F1F1 !important;
+}
+
+.listCover {
+	width: 22rem;
+	margin: 0 auto;
+	border: 2px solid black;
+	background-color: rgba(0,0,0,0.75);
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	background-image: url("https://qutesports.com/wp-content/uploads/2018/06/League-of-Legends-banner.jpg");
+	background-position: center;
+  	//background-repeat: no-repeat;
+  	background-size: cover;
+  	height: 100%;
+}
+
+#saveButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 8px;
+}
+
+h4 {
+	text-align: center;
+	color:white;
+}
+
+#home {
+	width: 90%;
+	margin: 100px auto;
+	background-color: rgba(16, 50, 60, .9);
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+#home input {
+	width: 100%;
+	margin-bottom: 10px;
+	height: 50px;
+}

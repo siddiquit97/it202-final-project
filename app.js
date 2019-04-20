@@ -1,19 +1,21 @@
 var summonerName;
 var summonerID;
 var accountID;		
-var apiKey = "RGAPI-b0107c87-32ca-4af3-a1a2-749f16beac85";
+var apiKey = "RGAPI-8b5b5cc4-1166-440f-accb-81c960711048";
+var winTotal = 0;
 
 $(document).ready(function() {
 	hideScreens();
-	$("#search").show();
+	$("#home").show();
 });
 
 $("#search_button").click(function() {
-	//var summonerNameSearch = $("#summoner_name").val();
+	winTotal = 0;
+	var summonerNameSearch = $("#summoner_name").val();
 
 	hideScreens();
 	$("#list").show();
-	summonerNameSearch = "wascally rascal"
+	//summonerNameSearch = "siddique"
 	var url = "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerNameSearch+"?api_key=" + apiKey;
 	$.get(url, function(response){
 		var data = response;
@@ -36,7 +38,7 @@ $("#search_button").click(function() {
 	}
 			
 	function getMatchDetails(gameId, champion) {
-		console.log(gameId + "\n" + champion);
+		//console.log(gameId + "\n" + champion);
 
 		$.get("https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matches/"+gameId+"?api_key=" + apiKey, function(response){
 			//console.log(response.participants);
@@ -44,6 +46,9 @@ $("#search_button").click(function() {
 				//console.log(response.participants[i]);
 				if (champion === response.participants[i].championId) {
 					var win = response.participants[i].stats.win;
+					if (win) {
+						winTotal = winTotal + 1;
+					}
 					var kills = response.participants[i].stats.kills;
 					var deaths = response.participants[i].stats.deaths;
 					var assists = response.participants[i].stats.assists;
@@ -57,20 +62,28 @@ $("#search_button").click(function() {
 					break;
 				} 
 			}
+			console.log(winTotal);
+			if(winTotal >= 3) {
+	        	$(".jumbotron").html("Hot Streak");
+	        	$(".jumbotron").addClass("win_jumbo");
+	        	$(".jumbotron").removeClass("lose_jumbo");
+	        } else {
+	        	$(".jumbotron").html("Cold Streak");
+	        	$(".jumbotron").addClass("lose_jumbo");
+	        	$(".jumbotron").removeClass("win_jumbo");
+	        }
 		});
+		
 	}
 
 	function displayMatchDetails(win, kills, deaths, assists, champion, role, lane) {
-		console.log(kills + "/" + deaths + "/" + assists);
-		console.log(win);
-
-		var winTotal = 0;
+		//console.log(kills + "/" + deaths + "/" + assists);
+		//console.log(win);
 
 		var clone = $(".template").clone();
 		if (win) {
 			clone.find(".card-title").text("Victory");
 			clone.addClass("win");
-			winTotal += 1;
 		} else {
 			clone.find(".card-title").text("Defeat");
 			clone.addClass("loss");
@@ -82,6 +95,7 @@ $("#search_button").click(function() {
 		clone.removeClass("template")
         // insert into DOM
         $(".listCover").append(clone);
+       
 	}
 
 	function getSource(role, lane) {
@@ -240,7 +254,14 @@ $("#search_button").click(function() {
 	}	
 });
 
+$(".nav-link").on("click", function(){
+	hideScreens();
+	var target = $(this).attr("href");
+	$(target).show();
+});
+
 function hideScreens() {
-		$("#search").hide();
+		$("#home").hide();
 		$("#list").hide();
-	}
+}
+
