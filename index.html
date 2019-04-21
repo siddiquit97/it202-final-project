@@ -5,13 +5,14 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Hot Streak</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<link rel="stylesheet" href="style.css">
         
     </head>
     <body>
         
 	    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Heat Check</a>
+			<a class="navbar-brand" href="#home">Heat Check</a>
 			<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 	    		<span class="navbar-toggler-icon"></span>
 	    	</button>
@@ -37,14 +38,16 @@
         </div> -->
 
         <div id="home">
-	  	  	<h4>Search for Graffiti</h1>
+	  	  	<h4>Search for Summoner</h1>
   	  		<input type="text" id="summoner_name" placeholder="Enter Summoner Name"><br>
   	  		<div id="saveButton"><button id="search_button">Search</button></div>
 	  	</div>
         
 
         <div class="container" id="list" style="margin-top: 20px;">
-        	<div class="jumbotron win_jumbo lose_jumbo">Hot Streak</div>
+        	<div class="jumbotron lose_jumbo">
+        		<h1 id="streak">Cold Streak</h1>
+        	</div>
 			<div class="listCover">
 				<div class="card template" style="width: 22rem; margin: auto; margin-bottom: 35px;">
 				  	<img class="card-img-top" src="http://via.placeholder.com/640x360" alt="Card image cap">
@@ -57,8 +60,13 @@
 			</div>	
         </div>
 		
+		<div id="map"></div>
+
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDa4dMSOASs_iLQnhrPoQ8EZgj2Im_pZ7o&callback=initMap">
+		</script>
 		<script src="app.js"></script>
     </body>
 </html>

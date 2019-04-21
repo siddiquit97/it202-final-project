@@ -1,8 +1,9 @@
 var summonerName;
 var summonerID;
 var accountID;		
-var apiKey = "RGAPI-8b5b5cc4-1166-440f-accb-81c960711048";
+var apiKey = "RGAPI-736e578f-c25b-464e-b5b9-f4074675ce0a";
 var winTotal = 0;
+var map, infoWindow;
 
 $(document).ready(function() {
 	hideScreens();
@@ -27,7 +28,7 @@ $("#search_button").click(function() {
 	});
 	
 	function getMatchInfo(accountID) {
-		$.get("https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/"+accountID+"?beginTime=1&endIndex=5&queue=420&api_key=" + apiKey, function(response){
+		$.get("https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/"+accountID+"?beginTime=1&endIndex=10&queue=420&api_key=" + apiKey, function(response){
 			//console.log(response.matches[0].gameId);
 			var data = response.matches;
 			//console.log(data);
@@ -63,12 +64,12 @@ $("#search_button").click(function() {
 				} 
 			}
 			console.log(winTotal);
-			if(winTotal >= 3) {
-	        	$(".jumbotron").html("Hot Streak");
+			if(winTotal >= 6) {
+	        	$("#streak").html("Hot Streak");
 	        	$(".jumbotron").addClass("win_jumbo");
 	        	$(".jumbotron").removeClass("lose_jumbo");
 	        } else {
-	        	$(".jumbotron").html("Cold Streak");
+	        	$("#streak").html("Cold Streak");
 	        	$(".jumbotron").addClass("lose_jumbo");
 	        	$(".jumbotron").removeClass("win_jumbo");
 	        }
@@ -254,7 +255,7 @@ $("#search_button").click(function() {
 	}	
 });
 
-$(".nav-link").on("click", function(){
+$("a").on("click", function(){
 	hideScreens();
 	var target = $(this).attr("href");
 	$(target).show();
@@ -263,5 +264,41 @@ $(".nav-link").on("click", function(){
 function hideScreens() {
 		$("#home").hide();
 		$("#list").hide();
+		$("#map").hide();
 }
 
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 6
+  });
+  infoWindow = new google.maps.InfoWindow;
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Location found.');
+      infoWindow.open(map);
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
+}

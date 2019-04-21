@@ -57,3 +57,25 @@ h4 {
 	margin-bottom: 10px;
 	height: 50px;
 }
+
+.lose_jumbo {
+	background-image: url("https://www.ecclesiastical.com/Images/cold-weather_tcm96-36410.jpg");
+	background-size: cover;
+	text-align: center;
+	color: white;
+	font-family: 'Righteous', cursive;
+}
+
+.win_jumbo {
+	background-image: url("https://wallpaperplay.com/walls/full/a/d/4/56041.jpg");
+	background-size: cover;
+	text-align: center;
+	color: white;
+	font-family: 'Righteous', cursive;
+}
+
+#map {
+  height: 50%;
+  width:50%;
+  margin: 100px auto;
+}
