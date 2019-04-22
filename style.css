@@ -79,3 +79,9 @@ h4 {
   width:50%;
   margin: 100px auto;
 }
+
+.server {
+	color: white;
+	text-align:center;
+	margin-bottom: 10px;
+}
