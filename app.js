@@ -1,9 +1,14 @@
 var summonerName;
 var summonerID;
 var accountID;		
-var apiKey = "RGAPI-736e578f-c25b-464e-b5b9-f4074675ce0a";
+var apiKey = "RGAPI-7107fbf2-f17e-48bb-a454-c9a037daea5c";
 var winTotal = 0;
 var map, infoWindow;
+var db = new Dexie("summoner_database");
+
+db.version(1).stores({
+    summoners: 'name,account_id'
+});
 
 $(document).ready(function() {
 	hideScreens();
@@ -14,9 +19,22 @@ $("#search_button").click(function() {
 	winTotal = 0;
 	var summonerNameSearch = $("#summoner_name").val();
 
+	if (!inDB(summonerNameSearch)) {
+		db.summoners.put({name: summonerNameSearch, account_id: 123});
+	}
+
+	function inDB(summonerNameSearch) {
+		db.summoners.each(function(summoner) {
+			console.log(summoner.name);
+			if (summoner.name === summonerNameSearch) {
+				return true;
+			}
+		});
+		return false;
+	}
 	hideScreens();
 	$("#list").show();
-	//summonerNameSearch = "siddique"
+
 	var url = "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerNameSearch+"?api_key=" + apiKey;
 	$.get(url, function(response){
 		var data = response;
@@ -28,7 +46,7 @@ $("#search_button").click(function() {
 	});
 	
 	function getMatchInfo(accountID) {
-		$.get("https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/"+accountID+"?beginTime=1&endIndex=10&queue=420&api_key=" + apiKey, function(response){
+		$.get("https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/"+accountID+"?beginTime=1&endIndex=5&queue=420&api_key=" + apiKey, function(response){
 			//console.log(response.matches[0].gameId);
 			var data = response.matches;
 			//console.log(data);
@@ -63,8 +81,8 @@ $("#search_button").click(function() {
 					break;
 				} 
 			}
-			console.log(winTotal);
-			if(winTotal >= 6) {
+			//console.log(winTotal);
+			if(winTotal >= 3) {
 	        	$("#streak").html("Hot Streak");
 	        	$(".jumbotron").addClass("win_jumbo");
 	        	$(".jumbotron").removeClass("lose_jumbo");
