@@ -32,8 +32,11 @@ $("#search_button").click(function() {
 		});
 		return false;
 	}
+
 	hideScreens();
 	$("#list").show();
+	$(".listCover").empty();
+	$(".listCover").show();
 
 	var url = "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+summonerNameSearch+"?api_key=" + apiKey;
 	$.get(url, function(response){
@@ -76,6 +79,7 @@ $("#search_button").click(function() {
 					var role = response.participants[i].timeline.role;
 					var lane = response.participants[i].timeline.lane;
 
+					
 					displayMatchDetails(win, kills, deaths, assists, champion, role, lane);
 
 					break;
@@ -99,6 +103,7 @@ $("#search_button").click(function() {
 		//console.log(kills + "/" + deaths + "/" + assists);
 		//console.log(win);
 
+
 		var clone = $(".template").clone();
 		if (win) {
 			clone.find(".card-title").text("Victory");
@@ -111,7 +116,7 @@ $("#search_button").click(function() {
 		clone.find(".card-text").text(kills + "/" + deaths + "/" + assists);
 
 		clone.find(".card-img-top").attr("src", getSource(role, lane));
-		clone.removeClass("template")
+		clone.removeClass("template");
         // insert into DOM
         $(".listCover").append(clone);
        
