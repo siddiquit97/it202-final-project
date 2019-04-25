@@ -1,4 +1,4 @@
-.template {
+.template, .template_two {
 	display: none;
 }
 
@@ -48,7 +48,6 @@ h4 {
 #home {
 	width: 90%;
 	margin: 100px auto;
-	background-color: rgba(16, 50, 60, .9);
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -84,4 +83,25 @@ h4 {
 	color: white;
 	text-align:center;
 	margin-bottom: 10px;
+}
+
+.list-group {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.list-group-item {
+	width: 100%;
+	text-align: center;
+}
+
+.searchCover {
+	background-color: rgba(16, 50, 60, .9);	
+}
+
+.otherCover {
+	width: 50%;
+	margin: 35px auto;
+	background-color: rgba(16, 50, 60, .9);
+	padding-bottom: 15px;
 }

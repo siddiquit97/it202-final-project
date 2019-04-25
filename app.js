@@ -1,7 +1,7 @@
 var summonerName;
 var summonerID;
 var accountID;		
-var apiKey = "RGAPI-7107fbf2-f17e-48bb-a454-c9a037daea5c";
+var apiKey = "RGAPI-ca55e607-e8c6-4f51-b48a-65aa3284fd0a";
 var winTotal = 0;
 var map, infoWindow;
 var db = new Dexie("summoner_database");
@@ -12,8 +12,23 @@ db.version(1).stores({
 
 $(document).ready(function() {
 	hideScreens();
+	$(".list-group").empty();
+	$(".list-group").show();
 	$("#home").show();
+	showPrevious();
+	
 });
+
+function showPrevious() {
+	db.summoners.each(function(summoner) {
+		//console.log("1 " + summoner.name);
+		var clone = $(".template_two").clone();
+		clone.text(summoner.name);
+		clone.removeClass("template_two");
+	    // insert into DOM
+	    $(".list-group").append(clone);
+	});		
+}
 
 $("#search_button").click(function() {
 	winTotal = 0;
@@ -24,8 +39,9 @@ $("#search_button").click(function() {
 	}
 
 	function inDB(summonerNameSearch) {
-		db.summoners.each(function(summoner) {
-			console.log(summoner.name);
+		$.fn.reverse = [].reverse;
+		db.summoners.reverse().each(function(summoner) {
+			//console.log(summoner);
 			if (summoner.name === summonerNameSearch) {
 				return true;
 			}
@@ -281,6 +297,12 @@ $("#search_button").click(function() {
 $("a").on("click", function(){
 	hideScreens();
 	var target = $(this).attr("href");
+	console.log(target);
+	if (target==="#home") {
+		$(".list-group").empty();
+		$(".list-group").show();
+		showPrevious();
+	}
 	$(target).show();
 });
 
