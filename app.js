@@ -1,7 +1,7 @@
 var summonerName;
 var summonerID;
 var accountID;		
-var apiKey = "RGAPI-d40cff14-8a08-4cf6-89a9-ad40be0d5780";
+var apiKey = "RGAPI-9eb424a4-e943-4c62-ad0d-c66ab79a2e14";
 var winTotal = 0;
 var map, infoWindow;
 var db = new Dexie("summoner_database");

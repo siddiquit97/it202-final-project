@@ -10,8 +10,8 @@
 	background-color: #FE90A4;
 }
 
-.navbar-default {
-   	 background: #F1F1F1 !important;
+.bg-light {
+   	 background: #5f9ea0 !important;
 }
 
 .listCover {
@@ -108,4 +108,8 @@ h4 {
 
 .card-body {
 	text-align: center;
+}
+
+.nav-link {
+	color: black;
 }
